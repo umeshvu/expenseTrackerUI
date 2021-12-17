@@ -45,7 +45,7 @@ export default function Income() {
             Please select the date.
           </small>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-secondary ">
           Submit
         </button>
       </form>
