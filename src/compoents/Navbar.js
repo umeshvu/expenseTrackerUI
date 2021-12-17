@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 export default function Navbar() {
   //assigning location variable
   const location = useLocation();
@@ -14,7 +13,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/home">
-          Expense Tracker
+          Track financial activities
         </Link>
         <button
           className="navbar-toggler"
