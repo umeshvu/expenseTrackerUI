@@ -40,13 +40,24 @@ export default function Navbar() {
             </li>
             <li
               className={
-                splitLocation[1] === "add-activity"
+                splitLocation[1] === "add-income"
                   ? "nav-item active"
                   : "nav-item"
               }
             >
-              <Link className="nav-link" to="/add-activity">
-                Add New Financial Activity
+              <Link className="nav-link" to="/add-income">
+                Income+
+              </Link>
+            </li>
+            <li
+              className={
+                splitLocation[1] === "add-expense"
+                  ? "nav-item active"
+                  : "nav-item"
+              }
+            >
+              <Link className="nav-link" to="/add-expense">
+                Expense+
               </Link>
             </li>
             <li

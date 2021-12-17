@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Home from "./Home";
-import AddActivity from "./AddActivity";
 import ListActivities from "./ListActivities";
+import Expense from "./Expense";
+import Income from "./Income";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate replace to="/home" />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/add-activity" element={<AddActivity />} />
+        <Route path="/add-expense" element={<Expense />} />
+        <Route path="/add-income" element={<Income />} />
         <Route path="/list-activities" element={<ListActivities />} />
       </Routes>
     </BrowserRouter>
