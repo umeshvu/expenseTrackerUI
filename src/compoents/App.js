@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import AddActivity from "./AddActivity";
@@ -9,7 +9,8 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Navigate replace to="/home" />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/add-activity" element={<AddActivity />} />
         <Route path="/list-activities" element={<ListActivities />} />
       </Routes>
