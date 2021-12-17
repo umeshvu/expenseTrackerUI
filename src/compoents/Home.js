@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -15,25 +16,25 @@ export default function Home() {
       </div>
       <br />
       <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 cardClass">
           <div className="card text-left">
             <div className="card-header text-info">Income</div>
             <div className="card-body">
               <p>Total Income - 120$</p>
-              <button type="button" class="btn btn-secondary btn-sm">
+              <Link className="btn btn-secondary btn-sm" to="/add-income">
                 Income+
-              </button>
+              </Link>
             </div>
           </div>
         </div>
-        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
           <div className="card text-left">
             <div className="card-header text-info">Expense</div>
             <div className="card-body">
               <p>Total Expense - 120$</p>
-              <button type="button" class="btn btn-secondary btn-sm">
+              <Link className="btn btn-secondary btn-sm" to="/add-expense">
                 Expense+
-              </button>
+              </Link>
             </div>
           </div>
         </div>

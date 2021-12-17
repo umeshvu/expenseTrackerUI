@@ -13,7 +13,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/home">
-          Track financial activities
+          Track Financial Activities
         </Link>
         <button
           className="navbar-toggler"
@@ -40,6 +40,17 @@ export default function Navbar() {
             </li>
             <li
               className={
+                splitLocation[1] === "list-activities"
+                  ? "nav-item active"
+                  : "nav-item"
+              }
+            >
+              <Link className="nav-link" to="/list-activities">
+                List All
+              </Link>
+            </li>
+            <li
+              className={
                 splitLocation[1] === "add-income"
                   ? "nav-item active"
                   : "nav-item"
@@ -58,17 +69,6 @@ export default function Navbar() {
             >
               <Link className="nav-link" to="/add-expense">
                 Expense+
-              </Link>
-            </li>
-            <li
-              className={
-                splitLocation[1] === "list-activities"
-                  ? "nav-item active"
-                  : "nav-item"
-              }
-            >
-              <Link className="nav-link" to="/list-activities">
-                List Financial Activities
               </Link>
             </li>
           </ul>
