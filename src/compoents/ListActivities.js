@@ -3,6 +3,7 @@ import React from "react";
 export default function ListActivities() {
   return (
     <div className="container">
+      <br />
       <div
         className="btn-group btn-group-toggle _buttongroupClass"
         data-toggle="buttons"
