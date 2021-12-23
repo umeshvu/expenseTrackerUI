@@ -5,7 +5,7 @@ export default function ListActivities(props) {
 
   const listAllElems = fnaListItems.map((value, index) => {
     return (
-      <li className="list-group-item">
+      <li className="list-group-item" key={btoa(index)}>
         <div className="d-flex w-100 justify-content-between">
           <h5 className="mb-1">${value.amount}</h5>
           <small>{value.date}</small>
@@ -21,8 +21,7 @@ export default function ListActivities(props) {
           <button
             type="button"
             className="btn btn-outline-warning btn-sm"
-            data-toggle="modal"
-            data-target="#exampleModal"
+            // onClick={}
           >
             Edit
           </button>
@@ -30,7 +29,7 @@ export default function ListActivities(props) {
       </li>
     );
   });
-
+  console.log(listAllElems);
   return (
     <div className="container">
       <br />
@@ -51,69 +50,7 @@ export default function ListActivities(props) {
           Expense
         </label>
       </div>
-
       <ul className="list-group">{listAllElems}</ul>
-
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                New message
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="form-group">
-                  <label htmlFor="recipient-name" className="col-form-label">
-                    Recipient:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="recipient-name"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="message-text" className="col-form-label">
-                    Message:
-                  </label>
-                  <textarea
-                    className="form-control"
-                    id="message-text"
-                  ></textarea>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Send message
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
