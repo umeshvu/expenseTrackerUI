@@ -9,6 +9,7 @@ import Home from "./Home";
 import ListActivities from "./ListActivities";
 import Expense from "./Expense";
 import Income from "./Income";
+import Edit from "./Edit";
 
 function App() {
   const [FNAs, setFNA] = useState([]);
@@ -31,6 +32,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route path="/edit" element={<Navigate replace to="/home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/add-expense" element={<Expense />} />
           <Route path="/add-income" element={<Income />} />
@@ -38,6 +40,7 @@ function App() {
             path="/list-activities"
             element={<ListActivities data={FNAs} />}
           />
+          <Route path="/edit/:id" element={<Edit data={FNAs} />} />
         </Routes>
       </BrowserRouter>
     </Provider>

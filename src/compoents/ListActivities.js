@@ -1,11 +1,11 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 export default function ListActivities(props) {
   const fnaListItems = props.data;
 
   const listAllElems = fnaListItems.map((value, index) => {
     return (
-      <li className="list-group-item" key={btoa(index)}>
+      <li className="list-group-item" key={btoa(value.id)}>
         <div className="d-flex w-100 justify-content-between">
           <h5 className="mb-1">${value.amount}</h5>
           <small>{value.date}</small>
@@ -18,13 +18,12 @@ export default function ListActivities(props) {
             <small className="_income">Income</small>
           )}
 
-          <button
-            type="button"
+          <Link
             className="btn btn-outline-warning btn-sm"
-            // onClick={}
+            to={`/edit/${btoa(value.id)}`}
           >
             Edit
-          </button>
+          </Link>
         </div>
       </li>
     );
