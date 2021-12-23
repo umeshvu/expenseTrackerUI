@@ -1,6 +1,36 @@
 import React from "react";
 
-export default function ListActivities() {
+export default function ListActivities(props) {
+  const fnaListItems = props.data;
+
+  const listAllElems = fnaListItems.map((value, index) => {
+    return (
+      <li className="list-group-item">
+        <div className="d-flex w-100 justify-content-between">
+          <h5 className="mb-1">${value.amount}</h5>
+          <small>{value.date}</small>
+        </div>
+        <p className="mb-1">{value.description}</p>
+        <div className="d-flex w-100 justify-content-between">
+          {value.type === "exp" ? (
+            <small className="_expense">Expense</small>
+          ) : (
+            <small className="_income">Income</small>
+          )}
+
+          <button
+            type="button"
+            className="btn btn-outline-warning btn-sm"
+            data-toggle="modal"
+            data-target="#exampleModal"
+          >
+            Edit
+          </button>
+        </div>
+      </li>
+    );
+  });
+
   return (
     <div className="container">
       <br />
@@ -22,49 +52,12 @@ export default function ListActivities() {
         </label>
       </div>
 
-      <ul className="list-group">
-        <li className="list-group-item">
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">$3</h5>
-            <small>03/04/2021</small>
-          </div>
-          <p className="mb-1">Some placeholder content in a paragraph.</p>
-          <div className="d-flex w-100 justify-content-between">
-            <small className="_expense">Expense</small>
-            <button
-              type="button"
-              className="btn btn-outline-warning btn-sm"
-              data-toggle="modal"
-              data-target="#exampleModal"
-            >
-              Edit
-            </button>
-          </div>
-        </li>
-        <li className="list-group-item">
-          <div className="d-flex w-100 justify-content-between">
-            <h5 className="mb-1">$3</h5>
-            <small>03/04/2021</small>
-          </div>
-          <p className="mb-1">Some placeholder content in a paragraph.</p>
-          <div className="d-flex w-100 justify-content-between">
-            <small className="_income">Income</small>
-            <button
-              type="button"
-              className="btn btn-outline-warning btn-sm"
-              data-toggle="modal"
-              data-target="#exampleModal"
-            >
-              Edit
-            </button>
-          </div>
-        </li>
-      </ul>
+      <ul className="list-group">{listAllElems}</ul>
 
       <div
         className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -86,7 +79,7 @@ export default function ListActivities() {
             <div className="modal-body">
               <form>
                 <div className="form-group">
-                  <label for="recipient-name" className="col-form-label">
+                  <label htmlFor="recipient-name" className="col-form-label">
                     Recipient:
                   </label>
                   <input
@@ -96,7 +89,7 @@ export default function ListActivities() {
                   />
                 </div>
                 <div className="form-group">
-                  <label for="message-text" className="col-form-label">
+                  <label htmlFor="message-text" className="col-form-label">
                     Message:
                   </label>
                   <textarea

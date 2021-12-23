@@ -11,6 +11,20 @@ import Expense from "./Expense";
 import Income from "./Income";
 
 function App() {
+  const [FNAs, setFNA] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/fna")
+      .then((res) => {
+        console.log(res);
+        setFNA(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -20,7 +34,10 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/add-expense" element={<Expense />} />
           <Route path="/add-income" element={<Income />} />
-          <Route path="/list-activities" element={<ListActivities />} />
+          <Route
+            path="/list-activities"
+            element={<ListActivities data={FNAs} />}
+          />
         </Routes>
       </BrowserRouter>
     </Provider>
