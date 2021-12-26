@@ -20,7 +20,7 @@ export default function ListActivities(props) {
 
           <Link
             className="btn btn-outline-warning btn-sm"
-            to={`/edit/${btoa(value.id)}`}
+            to={`/edit/${btoa(value.id)}/${value.type}`}
           >
             Edit
           </Link>

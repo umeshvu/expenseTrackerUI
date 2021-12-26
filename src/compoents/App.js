@@ -40,7 +40,7 @@ function App() {
             path="/list-activities"
             element={<ListActivities data={FNAs} />}
           />
-          <Route path="/edit/:id" element={<Edit data={FNAs} />} />
+          <Route path="/edit/:id/:type" element={<Edit data={FNAs} />} />
         </Routes>
       </BrowserRouter>
     </Provider>

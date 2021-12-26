@@ -1,55 +1,80 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Edit(props) {
-  const { id } = useParams(); //getting the param value
+  const { id, type } = useParams(); //getting the param value
   const [startDate, setStartDate] = useState(new Date());
+  const [fnaData, setFnaData] = useState(["1"]);
+
+  useEffect(() => {
+    const allData = props.data;
+    const fna = allData.filter((fna) => btoa(fna.id) === id);
+    // setFnaData(fna);
+    console.log(fnaData);
+  }, []);
+
   return (
     <div className="container">
       <br />
       <form>
         <div className="form-group">
-          <label for="exampleInputEmail1">Amount Earned</label>
+          {type === "exp" ? (
+            <label htmlFor="amountArea">Amount Spent</label>
+          ) : (
+            <label htmlFor="amountArea">Amount Earned</label>
+          )}
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="amountArea"
+            aria-describedby="amountHelp"
           />
-          <small id="emailHelp" className="form-text text-muted">
-            Amount you like to keep a track as your income.
-          </small>
+
+          {type === "exp" ? (
+            <small id="amountHelp" className="form-text text-muted">
+              Amount you like to keep a track as your expense.
+            </small>
+          ) : (
+            <small id="amountHelp" className="form-text text-muted">
+              Amount you like to keep a track as your income.
+            </small>
+          )}
         </div>
         <div className="form-group">
-          <label for="exampleInputEmail1">Description</label>
+          <label htmlFor="descriptionArea">Description</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="descriptionArea"
+            aria-describedby="descriptionHelp"
           />
-          <small id="emailHelp" className="form-text text-muted">
+          <small id="descriptionHelp" className="form-text text-muted">
             Say something about this money.
           </small>
         </div>
         <div className="form-group">
-          <label for="exampleInputEmail1">Date</label>
+          <label htmlFor="dateArea">Date</label>
           <DatePicker
             className="form-control"
             closeOnScroll={true}
             selected={startDate}
             onChange={(date) => setStartDate(date)}
           />
-          <small id="emailHelp" className="form-text text-muted">
+          <small id="dateHelp" className="form-text text-muted">
             Please select the date.
           </small>
         </div>
-        <button className="btn btn-secondary ">Back</button>
-        <button type="submit" className="btn btn-secondary ">
-          Submit
+
+        <Link className="btn btn-secondary btn-sm mr-1" to="/list-activities">
+          Back
+        </Link>
+
+        <button type="submit" className="btn btn-warning btn-sm">
+          Update
         </button>
       </form>
     </div>
