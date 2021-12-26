@@ -3,7 +3,7 @@ import "../App.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import axios from "axios";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "../redux/store";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import ListActivities from "./ListActivities";
@@ -13,18 +13,6 @@ import Edit from "./Edit";
 
 function App() {
   const [FNAs, setFNA] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/fna")
-      .then((res) => {
-        console.log(res);
-        setFNA(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <Provider store={store}>
