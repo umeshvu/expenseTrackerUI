@@ -13,7 +13,7 @@ import { fetchAllFnaSever } from "../redux/action/fnaActions";
 function App({ getAllFnaSer }) {
   useEffect(() => {
     getAllFnaSer();
-  }, []);
+  }, [getAllFnaSer]);
 
   return (
     <BrowserRouter>

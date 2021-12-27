@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -10,23 +10,6 @@ function ListActivities({ fnaData }) {
   ) : (
     <div className="container">
       <br />
-      <div
-        className="btn-group btn-group-toggle _buttongroupClass"
-        data-toggle="buttons"
-      >
-        <label className="btn btn-secondary active">
-          <input type="radio" name="options" id="option1" />
-          All
-        </label>
-        <label className="btn btn-secondary">
-          <input type="radio" name="options" id="option2" />
-          Income
-        </label>
-        <label className="btn btn-secondary">
-          <input type="radio" name="options" id="option3" />
-          Expense
-        </label>
-      </div>
       <ul className="list-group">
         {fnaData &&
           fnaData.fnaList &&
@@ -65,13 +48,5 @@ const mapStateToProps = (state) => {
     fnaData: state.fnaList,
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getAllFnaSer: () => {
-//       dispatch(fetchAllFnaSever());
-//     },
-//   };
-// };
 
 export default connect(mapStateToProps, null)(ListActivities);
