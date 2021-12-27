@@ -1,58 +1,44 @@
 import axios from "axios";
-import apis from "../config/apis";
 
 import {
   GET_ALL_FNA,
-  GET_FNA_BY_ID,
-  NEW_FNA,
-  UPDATE_FNA,
-  DELETE_FNA,
-} from "./types";
+  GET_ALL_FNA_SUCCESS,
+  GET_ALL_FNA_FAILURE,
+} from "../types";
 
-export const getAllFna = (fnaList) => {
+export const fetchAllFnaSever = () => {
+  //This can have side effects
+  return (dispatch) => {
+    dispatch(fetchAllFna); //Making the loading true
+    axios
+      .get("http://localhost:4000/fna")
+      .then((response) => {
+        const allFna = response.data;
+        dispatch(fetchAllFnaSuccess(allFna)); //Passing the success data to state
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        dispatch(fetchAllFnaFailure(errorMessage)); //Passing the error data to state
+      });
+  };
+};
+
+export const fetchAllFna = () => {
   return {
     type: GET_ALL_FNA,
+  };
+};
+
+export const fetchAllFnaSuccess = (fnaList) => {
+  return {
+    type: GET_ALL_FNA_SUCCESS,
     payload: fnaList,
   };
 };
 
-export const getFnaById = (fna) => {
+export const fetchAllFnaFailure = (error) => {
   return {
-    type: GET_FNA_BY_ID,
-    payload: fna,
+    type: GET_ALL_FNA_FAILURE,
+    payload: error,
   };
 };
-
-export const createFna = (fna) => {
-  return {
-    type: NEW_FNA,
-    payload: fna,
-  };
-};
-
-export const updateFna = (fna) => {
-  return {
-    type: UPDATE_FNA,
-    payload: fna,
-  };
-};
-
-export const deleteFna = (id) => {
-  return {
-    type: DELETE_FNA,
-    payload: id,
-  };
-};
-
-// export const getAllFnas = () => {
-//   return (dispatch) => {
-//     axios
-//       .get("http://localhost:4000/fna")
-//       .then((response) => {
-//         const allFna = response.data;
-//       })
-//       .catch((error) => {
-//         const errorMessage = error.message;
-//       });
-//   };
-// };

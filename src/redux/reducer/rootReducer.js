@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-
+import fetchReducer from "./fnaFetchReducer";
 export default combineReducers({
-  FNAs: fnaReducer,
+  fnaList: fetchReducer,
 });
