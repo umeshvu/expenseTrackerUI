@@ -11,8 +11,6 @@ const initialState = {
 };
 
 const fetchReducer = (state = initialState, action) => {
-  console.log();
-
   switch (action.type) {
     case GET_ALL_FNA:
       return {

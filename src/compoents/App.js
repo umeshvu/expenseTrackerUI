@@ -8,7 +8,7 @@ import ListActivities from "./ListActivities";
 import Expense from "./Expense";
 import Income from "./Income";
 import Edit from "./Edit";
-import { fetchAllFnaSever } from "../redux/action/fnaActions";
+import { fetchAllFnaFromSever } from "../redux/action/fnaActions";
 
 function App({ getAllFnaSer }) {
   useEffect(() => {
@@ -34,7 +34,7 @@ function App({ getAllFnaSer }) {
 const mapDispatchToProps = (dispatch) => {
   return {
     getAllFnaSer: () => {
-      dispatch(fetchAllFnaSever());
+      dispatch(fetchAllFnaFromSever());
     },
   };
 };

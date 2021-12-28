@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getFnaById } from "../redux/action/fnaActions";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function Edit(props) {
+function Edit({ allFnaData, getFnaById }) {
   const { id, type } = useParams(); //getting the param value
-  const [startDate, setStartDate] = useState(new Date());
-  const [fnaData, setFnaData] = useState(["1"]);
+  const [startDate, setStartDate] = useState(new Date()); //For datepicker
 
   useEffect(() => {
-    const allData = props.data;
-    const fna = allData.filter((fna) => btoa(fna.id) === id);
-    // setFnaData(fna);
-    console.log(fnaData);
-  }, []);
+    if (allFnaData.fnaList.length > 0) {
+      getFnaById(allFnaData.fnaList, parseInt(atob(id)));
+    }
+  }, [allFnaData]);
 
   return (
     <div className="container">
@@ -80,3 +80,20 @@ export default function Edit(props) {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getFnaById: (fnaData, id) => {
+      dispatch(getFnaById(fnaData, id));
+    },
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    allFnaData: state.fnaList,
+    currentElement: state.fnaEdit,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Edit);
