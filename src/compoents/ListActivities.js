@@ -18,7 +18,11 @@ function ListActivities({ fnaData }) {
               <li className="list-group-item" key={btoa(value.id)}>
                 <div className="d-flex w-100 justify-content-between">
                   <h5 className="mb-1">${value.amount}</h5>
-                  <small>{value.date}</small>
+                  <small>
+                    {new Intl.DateTimeFormat("en-US").format(
+                      new Date(value.date)
+                    )}
+                  </small>
                 </div>
                 <p className="mb-1">{value.description}</p>
                 <div className="d-flex w-100 justify-content-between">

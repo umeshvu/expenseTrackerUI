@@ -7,7 +7,7 @@ import { getFnaById } from "../redux/action/fnaActions";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function Edit({ allFnaData, getFnaById }) {
+function Edit({ allFnaData, currentElement, getFnaById }) {
   const { id, type } = useParams(); //getting the param value
   const [startDate, setStartDate] = useState(new Date()); //For datepicker
 
@@ -16,6 +16,13 @@ function Edit({ allFnaData, getFnaById }) {
       getFnaById(allFnaData.fnaList, parseInt(atob(id)));
     }
   }, [allFnaData]);
+
+  useEffect(() => {
+    if (currentElement.loading != true) {
+      const date = new Date(currentElement.date);
+      setStartDate(date);
+    }
+  }, [currentElement]);
 
   return (
     <div className="container">
@@ -32,6 +39,7 @@ function Edit({ allFnaData, getFnaById }) {
             className="form-control"
             id="amountArea"
             aria-describedby="amountHelp"
+            value={currentElement.amount}
           />
 
           {type === "exp" ? (
@@ -51,6 +59,7 @@ function Edit({ allFnaData, getFnaById }) {
             className="form-control"
             id="descriptionArea"
             aria-describedby="descriptionHelp"
+            value={currentElement.description}
           />
           <small id="descriptionHelp" className="form-text text-muted">
             Say something about this money.

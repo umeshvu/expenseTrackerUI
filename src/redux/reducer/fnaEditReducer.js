@@ -1,7 +1,7 @@
 import { GET_FNA_BY_ID } from "../types";
 
 const initialState = {
-  loading: false,
+  loading: true,
   error: "",
   id: "",
   amount: "",
@@ -19,6 +19,8 @@ const editReducer = (state = initialState, action) => {
       );
       if (result.length > 0) {
         const value = result[0];
+        const date = new Date(value.date);
+        const locDate = new Intl.DateTimeFormat("en-US").format(date);
         return {
           loading: false,
           error: "No error",
