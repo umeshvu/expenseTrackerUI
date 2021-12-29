@@ -20,8 +20,6 @@ const homeReducer = (state = initialState, action) => {
       };
 
     case SET_FNA_SUMMARY:
-      console.log("Insdie SET_FNA_SUMMARY");
-
       const allFna = action.payload.fnaData.fnaList;
       const allExpense = allFna.filter((element) => element.type === "exp");
       const allIncome = allFna.filter((element) => element.type === "inc");

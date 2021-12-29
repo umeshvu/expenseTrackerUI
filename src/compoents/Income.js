@@ -11,38 +11,38 @@ export default function Income() {
       <br />
       <form>
         <div className="form-group">
-          <label for="exampleInputEmail1">Amount Earned</label>
+          <label htmlFor="exampleInputEmail1">Amount Earned</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="amountArea"
+            aria-describedby="amountHelp"
           />
-          <small id="emailHelp" className="form-text text-muted">
+          <small id="amountHelp" className="form-text text-muted">
             Amount you like to keep a track as your income.
           </small>
         </div>
         <div className="form-group">
-          <label for="exampleInputEmail1">Description</label>
+          <label htmlFor="exampleInputEmail1">Description</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="descriptionArea"
+            aria-describedby="descriptionHelp"
           />
-          <small id="emailHelp" className="form-text text-muted">
+          <small id="descriptionHelp" className="form-text text-muted">
             Say something about this money.
           </small>
         </div>
         <div className="form-group">
-          <label for="exampleInputEmail1">Date</label>
+          <label htmlFor="dateArea">Date</label>
           <DatePicker
             className="form-control"
             closeOnScroll={true}
             selected={startDate}
             onChange={(date) => setStartDate(date)}
           />
-          <small id="emailHelp" className="form-text text-muted">
+          <small id="dateHelp" className="form-text text-muted">
             Please select the date.
           </small>
         </div>

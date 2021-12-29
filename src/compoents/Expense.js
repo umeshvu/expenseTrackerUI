@@ -11,7 +11,7 @@ export default function Expense() {
       <br />
       <form>
         <div className="form-group">
-          <label for="exampleInputEmail1">Amount Spent</label>
+          <label htmlFor="exampleInputEmail1">Amount Spent</label>
           <input
             type="email"
             className="form-control"
@@ -23,26 +23,26 @@ export default function Expense() {
           </small>
         </div>
         <div className="form-group">
-          <label for="exampleInputEmail1">Description</label>
+          <label htmlFor="exampleInputEmail1">Description</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            id="descriptionArea"
+            aria-describedby="descriptionHelp"
           />
-          <small id="emailHelp" className="form-text text-muted">
+          <small id="descriptionHelp" className="form-text text-muted">
             Say something about this money.
           </small>
         </div>
         <div className="form-group">
-          <label for="exampleInputEmail1">Date</label>
+          <label htmlFor="dateArea">Date</label>
           <DatePicker
             className="form-control"
             closeOnScroll={true}
             selected={startDate}
             onChange={(date) => setStartDate(date)}
           />
-          <small id="emailHelp" className="form-text text-muted">
+          <small id="dateHelp" className="form-text text-muted">
             Please select the date.
           </small>
         </div>
