@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { setFnaHomeSummary } from "../redux/action/fnaActions";
 
-export default function Home() {
-  return (
+function Home({ homeSummary }) {
+  return homeSummary.loading ? (
+    <div className="text-center m-5">
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>
+  ) : (
     <div className="container">
       <br />
       <div className="row">
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <div className="card text-left">
             <div className="card-header bg-secondary text-warning bg-muted">
-              Current Balance - $ 128/-
+              Current Balance - $ {homeSummary.balance.toFixed(2)}/-
             </div>
           </div>
         </div>
@@ -20,7 +28,7 @@ export default function Home() {
           <div className="card text-left">
             <div className="card-header text-info">Income</div>
             <div className="card-body">
-              <p>Total Income - 120$</p>
+              <p>Total Income - $ {homeSummary.totalIncome.toFixed(2)}</p>
               <Link className="btn btn-secondary btn-sm" to="/add-income">
                 Income+
               </Link>
@@ -31,7 +39,7 @@ export default function Home() {
           <div className="card text-left">
             <div className="card-header text-info">Expense</div>
             <div className="card-body">
-              <p>Total Expense - 120$</p>
+              <p>Total Expense - $ {homeSummary.totalExepnse.toFixed(2)}</p>
               <Link className="btn btn-secondary btn-sm" to="/add-expense">
                 Expense+
               </Link>
@@ -42,3 +50,11 @@ export default function Home() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    homeSummary: state.fnaHome,
+  };
+};
+
+export default connect(mapStateToProps, null)(Home);

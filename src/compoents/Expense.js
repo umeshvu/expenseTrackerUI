@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import { Link } from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -18,7 +19,7 @@ export default function Expense() {
             aria-describedby="emailHelp"
           />
           <small id="emailHelp" className="form-text text-muted">
-            Amount you like to keep a track as your income.
+            Amount you like to keep a track as your expense.
           </small>
         </div>
         <div className="form-group">
@@ -45,8 +46,11 @@ export default function Expense() {
             Please select the date.
           </small>
         </div>
-        <button type="submit" className="btn btn-secondary">
-          Submit
+        <Link className="btn btn-secondary btn-sm mr-1" to="/home">
+          Back
+        </Link>
+        <button type="submit" className="btn btn-warning btn-sm">
+          Add
         </button>
       </form>
     </div>

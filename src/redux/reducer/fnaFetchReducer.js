@@ -5,7 +5,7 @@ import {
 } from "../types";
 
 const initialState = {
-  loading: false,
+  loading: true,
   fnaList: [],
   error: "",
 };

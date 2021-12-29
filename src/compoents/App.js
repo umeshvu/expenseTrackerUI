@@ -8,14 +8,29 @@ import ListActivities from "./ListActivities";
 import Expense from "./Expense";
 import Income from "./Income";
 import Edit from "./Edit";
-import { fetchAllFnaFromSever } from "../redux/action/fnaActions";
+import {
+  fetchAllFnaFromSever,
+  setFnaHomeSummary,
+} from "../redux/action/fnaActions";
 
-function App({ getAllFnaSer }) {
+function App({ getAllFnaSer, setHomeSummary, allFnaData }) {
   useEffect(() => {
     getAllFnaSer();
-  }, [getAllFnaSer]);
+  }, []);
 
-  return (
+  useEffect(() => {
+    if (allFnaData.fnaList.length > 0) {
+      setHomeSummary(allFnaData);
+    }
+  });
+
+  return allFnaData.loading ? (
+    <div className="text-center m-5">
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    </div>
+  ) : (
     <BrowserRouter>
       <Navbar />
       <Routes>
@@ -36,7 +51,16 @@ const mapDispatchToProps = (dispatch) => {
     getAllFnaSer: () => {
       dispatch(fetchAllFnaFromSever());
     },
+    setHomeSummary: (fnaData) => {
+      dispatch(setFnaHomeSummary(fnaData));
+    },
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = (state) => {
+  return {
+    allFnaData: state.fnaList,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

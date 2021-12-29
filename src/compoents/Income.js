@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import { Link } from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -45,8 +46,11 @@ export default function Income() {
             Please select the date.
           </small>
         </div>
-        <button type="submit" className="btn btn-secondary ">
-          Submit
+        <Link className="btn btn-secondary btn-sm mr-1" to="/home">
+          Back
+        </Link>
+        <button type="submit" className="btn btn-warning btn-sm">
+          Add
         </button>
       </form>
     </div>

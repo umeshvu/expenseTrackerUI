@@ -5,6 +5,8 @@ import {
   GET_ALL_FNA_SUCCESS,
   GET_ALL_FNA_FAILURE,
   GET_FNA_BY_ID,
+  GET_FNA_SUMMARY,
+  SET_FNA_SUMMARY,
 } from "../types";
 
 export const fetchAllFnaFromSever = () => {
@@ -44,9 +46,23 @@ export const fetchAllFnaFailure = (error) => {
   };
 };
 
-export const getFnaById = (fnaData, id) => {
+export const getFnaById = (fnaList, id) => {
   return {
     type: GET_FNA_BY_ID,
-    payload: { fnaData: fnaData, id: id },
+    payload: { fnaData: fnaList, id: id },
+  };
+};
+
+export const getFnaHomeSummary = (fnaList) => {
+  return {
+    type: GET_FNA_SUMMARY,
+    payload: { fnaData: fnaList },
+  };
+};
+
+export const setFnaHomeSummary = (fnaData) => {
+  return {
+    type: SET_FNA_SUMMARY,
+    payload: { fnaData: fnaData },
   };
 };
