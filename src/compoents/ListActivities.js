@@ -39,9 +39,7 @@ function ListActivities({ fnaData, fnaDelete, deleteFnaFromServer }) {
         onClose={removeAlert}
         dismissible
       >
-        {fnaDelete.error === ""
-          ? ` <p>Deleted ${fnaDelete.description}!</p>`
-          : `${fnaDelete.error}`}
+        {fnaDelete.error === "" ? "Deleted succefully." : `${fnaDelete.error}`}
       </Alert>
       <ul className="list-group">
         {fnaData &&
