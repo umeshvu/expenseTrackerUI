@@ -8,7 +8,7 @@ const deleteReducer = (state = initialState, action) => {
   switch (action.type) {
     case DELETE_FNA_FAILURE:
       return {
-        error: "Something went wrong",
+        error: action.payload,
       };
 
     default:

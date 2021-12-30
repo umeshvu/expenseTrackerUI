@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Modal, Alert } from "react-bootstrap";
@@ -26,6 +27,54 @@ function ListActivities({ fnaData, fnaDelete, deleteFnaFromServer }) {
     setAlertShow(false);
   }
 
+  const fnaListRen = useMemo(() => {
+    return renderList(fnaData.fnaList);
+  }, [fnaData]);
+
+  function renderList(fnaData) {
+    const list = !fnaData ? (
+      <h2>Data is loading</h2>
+    ) : (
+      fnaData.map((value) => {
+        return (
+          <li className="list-group-item" key={btoa(value.id)}>
+            <div className="d-flex w-100 justify-content-between">
+              <h5 className="mb-1">${value.amount}</h5>
+              <small>
+                {new Intl.DateTimeFormat("en-US").format(new Date(value.date))}
+              </small>
+            </div>
+            <p className="mb-1">{value.description}</p>
+            <div className="d-flex w-100 justify-content-between">
+              {value.type === "exp" ? (
+                <small className="_expense">Expense</small>
+              ) : (
+                <small className="_income">Income</small>
+              )}
+
+              <button
+                onClick={() => {
+                  handleModalShow(value.id, value.description);
+                }}
+                className="btn btn-outline-danger btn-sm mr-1"
+              >
+                Delete
+              </button>
+            </div>
+
+            <Link
+              className="btn btn-outline-warning btn-sm"
+              to={`/edit/${btoa(value.id)}/${value.type}`}
+            >
+              Edit
+            </Link>
+          </li>
+        );
+      })
+    );
+    return list;
+  }
+
   return fnaData.loading ? (
     <h2>Data is loading</h2>
   ) : fnaData.error ? (
@@ -41,54 +90,13 @@ function ListActivities({ fnaData, fnaDelete, deleteFnaFromServer }) {
       >
         {fnaDelete.error === "" ? "Deleted succefully." : `${fnaDelete.error}`}
       </Alert>
-      <ul className="list-group">
-        {fnaData &&
-          fnaData.fnaList &&
-          fnaData.fnaList.map((value) => {
-            return (
-              <li className="list-group-item" key={btoa(value.id)}>
-                <div className="d-flex w-100 justify-content-between">
-                  <h5 className="mb-1">${value.amount}</h5>
-                  <small>
-                    {new Intl.DateTimeFormat("en-US").format(
-                      new Date(value.date)
-                    )}
-                  </small>
-                </div>
-                <p className="mb-1">{value.description}</p>
-                <div className="d-flex w-100 justify-content-between">
-                  {value.type === "exp" ? (
-                    <small className="_expense">Expense</small>
-                  ) : (
-                    <small className="_income">Income</small>
-                  )}
-
-                  <button
-                    onClick={() => {
-                      handleModalShow(value.id, value.description);
-                    }}
-                    className="btn btn-outline-danger btn-sm mr-1"
-                  >
-                    Delete
-                  </button>
-                </div>
-
-                <Link
-                  className="btn btn-outline-warning btn-sm"
-                  to={`/edit/${btoa(value.id)}/${value.type}`}
-                >
-                  Edit
-                </Link>
-              </li>
-            );
-          })}
-      </ul>
+      <ul className="list-group">{fnaData && fnaData.fnaList && fnaListRen}</ul>
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>Do you want this entry gone?</Modal.Header>
         <Modal.Body>{deleteRec.description}</Modal.Body>
         <Modal.Footer>
           <button
-            className="btn btn-outline-danger btn-sm mr-1"
+            className="btn btn-outline-secondary  btn-sm mr-1"
             onClick={handleClose}
           >
             Close

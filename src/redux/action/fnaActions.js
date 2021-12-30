@@ -33,7 +33,7 @@ export const deleteFnaFromServer = (id) => {
     axios
       .delete(`http://localhost:4000/fna/${id}`)
       .then((response) => {
-        dispatch(fetchAllFnaFromSever()); //Passing the success data to state
+        dispatch(fetchAllFnaFromSever()); //when delete success, directly calling fetchAllFnaFromSever
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -84,6 +84,20 @@ export const setFnaHomeSummary = (fnaData) => {
 };
 
 export const deleteFnaFailure = (error) => {
+  return {
+    type: DELETE_FNA_FAILURE,
+    payload: error,
+  };
+};
+
+export const addFnaSuccess = (newFnaData) => {
+  return {
+    type: DELETE_FNA_FAILURE,
+    payload: newFnaData,
+  };
+};
+
+export const addFnaFailure = (error) => {
   return {
     type: DELETE_FNA_FAILURE,
     payload: error,

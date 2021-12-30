@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function Expense() {
+import {
+  fetchAllFnaFromSever,
+  setFnaHomeSummary,
+} from "../redux/action/fnaActions";
+
+function Expense() {
   const [startDate, setStartDate] = useState(new Date());
   return (
     <div className="container">
@@ -56,3 +62,22 @@ export default function Expense() {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllFnaSer: () => {
+      dispatch(fetchAllFnaFromSever());
+    },
+    setHomeSummary: (fnaData) => {
+      dispatch(setFnaHomeSummary(fnaData));
+    },
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    allFnaData: state.fnaList,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Expense);
