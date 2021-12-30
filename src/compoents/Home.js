@@ -29,7 +29,7 @@ function Home({ homeSummary }) {
             <div className="card-header text-info">Income</div>
             <div className="card-body">
               <p>Total Income - $ {homeSummary.totalIncome.toFixed(2)}</p>
-              <Link className="btn btn-secondary btn-sm" to="/add-income">
+              <Link className="btn btn-outline-warning btn-sm" to="/add-income">
                 Income+
               </Link>
             </div>
@@ -40,7 +40,10 @@ function Home({ homeSummary }) {
             <div className="card-header text-info">Expense</div>
             <div className="card-body">
               <p>Total Expense - $ {homeSummary.totalExepnse.toFixed(2)}</p>
-              <Link className="btn btn-secondary btn-sm" to="/add-expense">
+              <Link
+                className="btn btn-outline-warning btn-sm"
+                to="/add-expense"
+              >
                 Expense+
               </Link>
             </div>

@@ -46,7 +46,7 @@ export default function Expense() {
             Please select the date.
           </small>
         </div>
-        <Link className="btn btn-secondary btn-sm mr-1" to="/home">
+        <Link className="btn btn-outline-secondary btn-sm mr-1" to="/home">
           Back
         </Link>
         <button type="submit" className="btn btn-warning btn-sm">

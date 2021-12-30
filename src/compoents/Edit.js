@@ -77,7 +77,10 @@ function Edit({ allFnaData, currentElement, getFnaById }) {
           </small>
         </div>
 
-        <Link className="btn btn-secondary btn-sm mr-1" to="/list-activities">
+        <Link
+          className="btn btn-outline-secondary btn-sm mr-1"
+          to="/list-activities"
+        >
           Back
         </Link>
 
