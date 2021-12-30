@@ -1,21 +1,30 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import Modal from "react-bootstrap/Modal";
+import { Modal, Alert } from "react-bootstrap";
+import { deleteFnaFromServer } from "../redux/action/fnaActions";
 
-function ListActivities({ fnaData }) {
+function ListActivities({ fnaData, fnaDelete, deleteFnaFromServer }) {
   const [show, setShow] = useState(false);
-  const [deleteId, setDeleteId] = useState(0);
+  const [alertShow, setAlertShow] = useState(false);
+  const [deleteRec, setDeleteId] = useState({ id: 0, description: "" });
 
   const handleClose = () => setShow(false);
 
-  function handleShow(id) {
-    setDeleteId(id);
+  function handleModalShow(id, description) {
+    setDeleteId({ id: id, description: description });
     setShow(true);
   }
 
-  function deleteEntry(id) {
-    console.log(id);
+  function deleteEntry(deleteRec) {
+    console.log(deleteRec);
+    deleteFnaFromServer(deleteRec.id);
+    setAlertShow(true);
+    setShow(false);
+  }
+
+  function removeAlert() {
+    setAlertShow(false);
   }
 
   return fnaData.loading ? (
@@ -25,6 +34,14 @@ function ListActivities({ fnaData }) {
   ) : (
     <div className="container">
       <br />
+      <Alert
+        variant="warning"
+        show={alertShow}
+        onClose={removeAlert}
+        dismissible
+      >
+        <p>Deleted {fnaDelete.description}!</p>
+      </Alert>
       <ul className="list-group">
         {fnaData &&
           fnaData.fnaList &&
@@ -49,7 +66,7 @@ function ListActivities({ fnaData }) {
 
                   <button
                     onClick={() => {
-                      handleShow(value.id);
+                      handleModalShow(value.id, value.description);
                     }}
                     className="btn btn-outline-danger btn-sm mr-1"
                   >
@@ -68,10 +85,8 @@ function ListActivities({ fnaData }) {
           })}
       </ul>
       <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Entry!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Do you want this entry gone?</Modal.Body>
+        <Modal.Header closeButton>Do you want this entry gone?</Modal.Header>
+        <Modal.Body>{deleteRec.description}</Modal.Body>
         <Modal.Footer>
           <button
             className="btn btn-outline-danger btn-sm mr-1"
@@ -81,7 +96,7 @@ function ListActivities({ fnaData }) {
           </button>
           <button
             className="btn btn-outline-danger btn-sm mr-1"
-            onClick={() => deleteEntry(deleteId)}
+            onClick={() => deleteEntry(deleteRec)}
           >
             Delete
           </button>
@@ -94,7 +109,16 @@ function ListActivities({ fnaData }) {
 const mapStateToProps = (state) => {
   return {
     fnaData: state.fnaList,
+    fnaDelete: state.fnaDelete,
   };
 };
 
-export default connect(mapStateToProps, null)(ListActivities);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteFnaFromServer: (id) => {
+      dispatch(deleteFnaFromServer(id));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListActivities);
