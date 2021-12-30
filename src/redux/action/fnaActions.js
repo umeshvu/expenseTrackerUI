@@ -26,6 +26,23 @@ export const fetchAllFnaFromSever = () => {
   };
 };
 
+export const deleteFnaFromServer = () => {
+  //This can have side effects
+  return (dispatch) => {
+    dispatch(fetchAllFna); //Making the loading true
+    axios
+      .get("http://localhost:4000/fna")
+      .then((response) => {
+        const allFna = response.data;
+        dispatch(fetchAllFnaSuccess(allFna)); //Passing the success data to state
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        dispatch(fetchAllFnaFailure(errorMessage)); //Passing the error data to state
+      });
+  };
+};
+
 export const fetchAllFna = () => {
   return {
     type: GET_ALL_FNA,
