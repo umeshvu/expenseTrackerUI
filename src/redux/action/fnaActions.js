@@ -7,7 +7,6 @@ import {
   GET_FNA_BY_ID,
   GET_FNA_SUMMARY,
   SET_FNA_SUMMARY,
-  DELETE_FNA_SUCCESS,
   DELETE_FNA_FAILURE,
 } from "../types";
 
@@ -34,7 +33,6 @@ export const deleteFnaFromServer = (id) => {
     axios
       .delete(`http://localhost:4000/fna/${id}`)
       .then((response) => {
-        console.log(response);
         dispatch(fetchAllFnaFromSever()); //Passing the success data to state
       })
       .catch((error) => {

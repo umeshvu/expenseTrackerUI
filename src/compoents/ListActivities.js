@@ -17,7 +17,6 @@ function ListActivities({ fnaData, fnaDelete, deleteFnaFromServer }) {
   }
 
   function deleteEntry(deleteRec) {
-    console.log(deleteRec);
     deleteFnaFromServer(deleteRec.id);
     setAlertShow(true);
     setShow(false);
@@ -40,7 +39,9 @@ function ListActivities({ fnaData, fnaDelete, deleteFnaFromServer }) {
         onClose={removeAlert}
         dismissible
       >
-        <p>Deleted {fnaDelete.description}!</p>
+        {fnaDelete.error === ""
+          ? ` <p>Deleted ${fnaDelete.description}!</p>`
+          : `${fnaDelete.error}`}
       </Alert>
       <ul className="list-group">
         {fnaData &&
