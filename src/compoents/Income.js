@@ -1,22 +1,80 @@
+import "react-datepicker/dist/react-datepicker.css";
 import React, { useState } from "react";
+import axios from "axios";
 import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Alert } from "react-bootstrap";
+import {
+  addFnaInServerSuccess,
+  addFnaFailure,
+} from "../redux/action/fnaActions";
 
-import "react-datepicker/dist/react-datepicker.css";
-
-export default function Income() {
+function Income({ newFnaRec, addFnaInServerSuccess, addFnaFailure }) {
   const [startDate, setStartDate] = useState(new Date());
+  const [alertShow, setAlertShow] = useState(false);
+  const [newTempFnaRec, setNewFnaRec] = useState({
+    amount: "",
+    description: "",
+  });
+
+  function removeAlert() {
+    setAlertShow(false);
+  }
+
+  const set = (name) => {
+    return ({ target: { value } }) => {
+      setNewFnaRec((oldValues) => ({ ...oldValues, [name]: value }));
+    };
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post(`http://localhost:4000/fna`, {
+        amount: newTempFnaRec.amount,
+        description: newTempFnaRec.description,
+        date: startDate,
+        type: "inc", //financial activity type
+        user_id: "1", //Hardcoding as 1, no login mechanism for now.
+      })
+      .then((response) => {
+        const newFna = response.data;
+        setAlertShow(true);
+        addFnaInServerSuccess(newFna);
+        setNewFnaRec({
+          amount: "",
+          description: "",
+        });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        addFnaFailure(errorMessage); //Passing the error data to state
+        setAlertShow(true);
+      });
+  };
   return (
     <div className="container">
       <br />
-      <form>
+      <Alert
+        variant="warning"
+        show={alertShow}
+        onClose={removeAlert}
+        dismissible
+      >
+        {newFnaRec.error === "" ? "Added succefully" : `${newFnaRec.error}`}
+      </Alert>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Amount Earned</label>
           <input
-            type="text"
+            type="number"
             className="form-control"
-            id="amountArea"
+            id="amountInput"
             aria-describedby="amountHelp"
+            value={newTempFnaRec.amount}
+            onChange={set("amount")}
+            required
           />
           <small id="amountHelp" className="form-text text-muted">
             Amount you like to keep a track as your income.
@@ -29,6 +87,9 @@ export default function Income() {
             className="form-control"
             id="descriptionArea"
             aria-describedby="descriptionHelp"
+            value={newTempFnaRec.description}
+            onChange={set("description")}
+            required
           />
           <small id="descriptionHelp" className="form-text text-muted">
             Say something about this money.
@@ -56,3 +117,22 @@ export default function Income() {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addFnaInServerSuccess: (allFna) => {
+      dispatch(addFnaInServerSuccess(allFna));
+    },
+    addFnaFailure: (errorMessage) => {
+      dispatch(addFnaFailure(errorMessage));
+    },
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    newFnaRec: state.newFnaRec,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Income);

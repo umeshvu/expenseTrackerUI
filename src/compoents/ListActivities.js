@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMemo } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -28,6 +28,7 @@ function ListActivities({ fnaData, fnaDelete, deleteFnaFromServer }) {
   }
 
   const fnaListRen = useMemo(() => {
+    //Here useMemo make sure list is rendering only when fnaData is changing
     return renderList(fnaData.fnaList);
   }, [fnaData]);
 

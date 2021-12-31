@@ -4,8 +4,6 @@ export const GET_ALL_FNA_SUCCESS = "GET_ALL_FNA_SUCCESS";
 export const GET_ALL_FNA_FAILURE = "GET_ALL_FNA_FAILURE";
 // Get fna by id
 export const GET_FNA_BY_ID = "GET_FNA_BY_ID";
-export const GET_FNA_BY_ID_SUCCESS = "GET_FNA_BY_ID_SUCCESS";
-export const GET_FNA_BY_ID_FAILURE = "GET_FNA_BY_ID_FAILURE";
 // Add new fna
 export const NEW_FNA_SUCCESS = "NEW_FNA_SUCCESS";
 export const NEW_FNA_FAILURE = "NEW_FNA_FAILURE";

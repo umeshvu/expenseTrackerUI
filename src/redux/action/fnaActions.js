@@ -5,9 +5,10 @@ import {
   GET_ALL_FNA_SUCCESS,
   GET_ALL_FNA_FAILURE,
   GET_FNA_BY_ID,
-  GET_FNA_SUMMARY,
   SET_FNA_SUMMARY,
   DELETE_FNA_FAILURE,
+  NEW_FNA_SUCCESS,
+  NEW_FNA_FAILURE,
 } from "../types";
 
 export const fetchAllFnaFromSever = () => {
@@ -23,21 +24,6 @@ export const fetchAllFnaFromSever = () => {
       .catch((error) => {
         const errorMessage = error.message;
         dispatch(fetchAllFnaFailure(errorMessage)); //Passing the error data to state
-      });
-  };
-};
-
-export const deleteFnaFromServer = (id) => {
-  //This can have side effects, thunk rocks here.
-  return (dispatch) => {
-    axios
-      .delete(`http://localhost:4000/fna/${id}`)
-      .then((response) => {
-        dispatch(fetchAllFnaFromSever()); //when delete success, directly calling fetchAllFnaFromSever
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        dispatch(deleteFnaFailure(errorMessage)); //Passing the error data to state
       });
   };
 };
@@ -69,17 +55,27 @@ export const getFnaById = (fnaList, id) => {
   };
 };
 
-export const getFnaHomeSummary = (fnaList) => {
-  return {
-    type: GET_FNA_SUMMARY,
-    payload: { fnaData: fnaList },
-  };
-};
-
 export const setFnaHomeSummary = (fnaData) => {
   return {
     type: SET_FNA_SUMMARY,
     payload: { fnaData: fnaData },
+  };
+};
+
+//Deleting financial activity
+
+export const deleteFnaFromServer = (id) => {
+  //This can have side effects, thunk rocks here.
+  return (dispatch) => {
+    axios
+      .delete(`http://localhost:4000/fna/${id}`)
+      .then((response) => {
+        dispatch(fetchAllFnaFromSever()); //when delete success, directly calling fetchAllFnaFromSever
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        dispatch(deleteFnaFailure(errorMessage)); //Passing the error data to state
+      });
   };
 };
 
@@ -90,16 +86,24 @@ export const deleteFnaFailure = (error) => {
   };
 };
 
-export const addFnaSuccess = (newFnaData) => {
+//Financial activity success
+export const addFnaInServerSuccess = (newFna) => {
+  return (dispatch) => {
+    dispatch(addFnaSuccess(newFna));
+    dispatch(fetchAllFnaFromSever()); //when post success, directly calling fetchAllFnaFromSever
+  };
+};
+
+export const addFnaSuccess = (newFnaRec) => {
   return {
-    type: DELETE_FNA_FAILURE,
-    payload: newFnaData,
+    type: NEW_FNA_SUCCESS,
+    payload: newFnaRec,
   };
 };
 
 export const addFnaFailure = (error) => {
   return {
-    type: DELETE_FNA_FAILURE,
+    type: NEW_FNA_FAILURE,
     payload: error,
   };
 };
