@@ -1,4 +1,5 @@
 import axios from "axios";
+import apis from "../../config/apis";
 
 import {
   GET_ALL_FNA,
@@ -9,6 +10,7 @@ import {
   DELETE_FNA_FAILURE,
   NEW_FNA_SUCCESS,
   NEW_FNA_FAILURE,
+  UPDATE_FNA_FAILURE,
 } from "../types";
 
 export const fetchAllFnaFromSever = () => {
@@ -16,7 +18,7 @@ export const fetchAllFnaFromSever = () => {
   return (dispatch) => {
     dispatch(fetchAllFna); //Making the loading true
     axios
-      .get("http://localhost:4000/fna")
+      .get(`${apis.hostname}${apis.fna}`)
       .then((response) => {
         const allFna = response.data;
         dispatch(fetchAllFnaSuccess(allFna)); //Passing the success data to state
@@ -68,7 +70,7 @@ export const deleteFnaFromServer = (id) => {
   //This can have side effects, thunk rocks here.
   return (dispatch) => {
     axios
-      .delete(`http://localhost:4000/fna/${id}`)
+      .delete(`${apis.hostname}${apis.fna}${id}`)
       .then((response) => {
         dispatch(fetchAllFnaFromSever()); //when delete success, directly calling fetchAllFnaFromSever
       })
@@ -104,6 +106,13 @@ export const addFnaSuccess = (newFnaRec) => {
 export const addFnaFailure = (error) => {
   return {
     type: NEW_FNA_FAILURE,
+    payload: error,
+  };
+};
+
+export const editFnaFailure = (error) => {
+  return {
+    type: UPDATE_FNA_FAILURE,
     payload: error,
   };
 };

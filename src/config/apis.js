@@ -1,6 +1,6 @@
 const apis = {
   hostname: "http://localhost:4000",
-  getAllFna: "/fna",
+  fna: "/fna/",
 };
 
 export default apis;

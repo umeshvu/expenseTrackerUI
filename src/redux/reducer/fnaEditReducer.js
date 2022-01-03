@@ -1,4 +1,4 @@
-import { GET_FNA_BY_ID } from "../types";
+import { GET_FNA_BY_ID, UPDATE_FNA_FAILURE } from "../types";
 
 const initialState = {
   loading: true,
@@ -19,10 +19,9 @@ const editReducer = (state = initialState, action) => {
       );
       if (result.length > 0) {
         const value = result[0];
-        const date = new Date(value.date);
         return {
           loading: false,
-          error: "No error",
+          error: "",
           id: value.id,
           amount: value.amount,
           description: value.description,
@@ -30,8 +29,26 @@ const editReducer = (state = initialState, action) => {
           date: value.date,
         };
       } else {
-        return "error";
+        return {
+          loading: true,
+          error: "Something went wrong",
+          id: "",
+          amount: "",
+          description: "",
+          type: "",
+          date: "",
+        };
       }
+    case UPDATE_FNA_FAILURE:
+      return {
+        loading: true,
+        error: action.payload.error,
+        id: "",
+        amount: "",
+        description: "",
+        type: "",
+        date: "",
+      };
 
     default:
       return state;

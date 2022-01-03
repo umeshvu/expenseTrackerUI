@@ -22,6 +22,9 @@ function App({ getAllFnaSer, setHomeSummary, allFnaData }) {
     if (allFnaData.fnaList.length > 0) {
       setHomeSummary(allFnaData);
     }
+    if (allFnaData.fnaList.length === 0) {
+      alert("No Data");
+    }
   });
 
   return allFnaData.loading ? (

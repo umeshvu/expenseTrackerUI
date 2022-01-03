@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Alert } from "react-bootstrap";
+import apis from "../config/apis";
 import {
   addFnaInServerSuccess,
   addFnaFailure,
@@ -31,7 +32,7 @@ function Expense({ newFnaRec, addFnaInServerSuccess, addFnaFailure }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post(`http://localhost:4000/fna`, {
+      .post(`${apis.hostname}${apis.fna}`, {
         amount: newTempFnaRec.amount,
         description: newTempFnaRec.description,
         date: startDate,
@@ -78,7 +79,7 @@ function Expense({ newFnaRec, addFnaInServerSuccess, addFnaFailure }) {
             required
           />
           <small id="amountHelp" className="form-text text-muted">
-            Amount you like to keep a track as your expense.
+            Amount you like to keep track as your expense.
           </small>
         </div>
         <div className="form-group">

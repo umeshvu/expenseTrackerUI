@@ -1,4 +1,8 @@
-import { GET_FNA_SUMMARY, SET_FNA_SUMMARY } from "../types";
+import {
+  GET_FNA_SUMMARY,
+  SET_FNA_SUMMARY,
+  SET_FNA_SUMMARY_EMPTY,
+} from "../types";
 
 const initialState = {
   loading: true,
@@ -41,6 +45,14 @@ const homeReducer = (state = initialState, action) => {
         balance: balance,
       };
 
+    case SET_FNA_SUMMARY_EMPTY:
+      return {
+        loading: false,
+        error: "",
+        totalExepnse: 0,
+        totalIncome: 0,
+        balance: 0,
+      };
     default:
       return state;
   }
