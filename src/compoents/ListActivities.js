@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Modal, Alert } from "react-bootstrap";
 import { deleteFnaFromServer } from "../redux/action/fnaActions";
+import Loading from "./Loading";
 
 function ListActivities({ fnaData, fnaDelete, deleteFnaFromServer }) {
   const [show, setShow] = useState(false);
@@ -34,7 +35,7 @@ function ListActivities({ fnaData, fnaDelete, deleteFnaFromServer }) {
 
   function renderList(fnaData) {
     const list = !fnaData ? (
-      <h2>Data is loading</h2>
+      <Loading />
     ) : (
       fnaData.map((value) => {
         return (

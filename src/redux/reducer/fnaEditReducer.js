@@ -20,7 +20,6 @@ const editReducer = (state = initialState, action) => {
       if (result.length > 0) {
         const value = result[0];
         const date = new Date(value.date);
-        const locDate = new Intl.DateTimeFormat("en-US").format(date);
         return {
           loading: false,
           error: "No error",

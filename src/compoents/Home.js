@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setFnaHomeSummary } from "../redux/action/fnaActions";
+import Loading from "./Loading";
 
 function Home({ homeSummary }) {
   return homeSummary.loading ? (
-    <div className="text-center m-5">
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    </div>
+    <Loading />
   ) : (
     <div className="container">
       <br />

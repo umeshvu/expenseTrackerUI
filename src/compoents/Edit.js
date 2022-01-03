@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import { useParams, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getFnaById } from "../redux/action/fnaActions";
+import Loading from "./Loading";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -23,7 +24,13 @@ function Edit({ allFnaData, currentElement, getFnaById }) {
     }
   }, [currentElement]);
 
-  return (
+  const handleOnChange = (val) => {
+    console.log(val);
+  };
+
+  return currentElement.loading ? (
+    <Loading />
+  ) : (
     <div className="container">
       <br />
       <form>
@@ -39,6 +46,9 @@ function Edit({ allFnaData, currentElement, getFnaById }) {
             id="amountArea"
             aria-describedby="amountHelp"
             value={currentElement.amount}
+            onChange={() => {
+              handleOnChange("amount");
+            }}
           />
 
           {type === "exp" ? (
@@ -59,6 +69,9 @@ function Edit({ allFnaData, currentElement, getFnaById }) {
             id="descriptionArea"
             aria-describedby="descriptionHelp"
             value={currentElement.description}
+            onChange={() => {
+              handleOnChange("description");
+            }}
           />
           <small id="descriptionHelp" className="form-text text-muted">
             Say something about this money.
